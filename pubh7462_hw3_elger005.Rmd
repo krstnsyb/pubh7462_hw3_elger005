@@ -235,7 +235,16 @@ insta_prod5 <- instacart %>%
 table2 <- insta_prod5 %>%
   group_by(aisle) %>%
   arrange(aisle) %>%
-  gt() %>%
+  gt(rowname_col = "product_name", groupname_col = "aisle") %>%
+  tab_style(
+    style = list(
+      cell_fill("lightgray"),
+      cell_text(color = "black", weight = "bold")
+      ),
+    locations = cells_row_groups()) %>%
+   tab_style(
+     cell_text(indent = 25),
+     locations = cells_stub()) %>%
   tab_header("Table 2. Top 5 aisles with the highest number of items purchased and top 5 products in each department.") %>%
   data_color(
     columns = product_tot,
@@ -245,7 +254,7 @@ table2 <- insta_prod5 %>%
     )
   ) %>%
   cols_label(
-    product_tot = "Number of Items",
+    product_tot = "No. Items",
     product_name = "Product Name"
   )
 
